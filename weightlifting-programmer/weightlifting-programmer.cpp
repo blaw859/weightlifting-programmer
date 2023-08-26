@@ -9,5 +9,6 @@
 int main()
 {
 	User lifter_a("jimmy_lifter", 24, 100.3, 182);
+	std::cout << lifter_a.GetUsername() << std::endl;
 }
 
