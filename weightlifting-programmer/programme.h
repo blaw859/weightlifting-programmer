@@ -6,8 +6,14 @@
 
 class Programme {
 private:
-	size_t length; // length of programme in days
-	std::vector<std::unique_ptr<ExerciseSession>> sessions_;
+	size_t length_; // length of programme in days
+	std::vector<std::unique_ptr<Day>> Days;
 
 public:
+	Programme(size_t len) : length_(len) {}
+
+
+
+
+
 };
