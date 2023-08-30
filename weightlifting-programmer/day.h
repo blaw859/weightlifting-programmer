@@ -8,27 +8,11 @@ private:
 	std::vector<std::unique_ptr<ExerciseSession>> sessions_;
 
 public:
-	Day() = default;
+	Day();
+	Day(std::unique_ptr<ExerciseSession> session);
+	Day(std::vector<std::unique_ptr<ExerciseSession>> sessions);
 
-	Day(std::unique_ptr<ExerciseSession> session) {
-		sessions_.push_back(std::move(session));
-	}
-
-	Day(std::vector<std::unique_ptr<ExerciseSession>> sessions) : sessions_(std::move(sessions)) {}
-
-	std::vector<ExerciseSession*> GetSessions() const {
-		std::vector<ExerciseSession*> result;
-		for (const auto& session_ptr : sessions_) {
-			result.push_back(session_ptr.get());
-		}
-		return result;
-	}
-
-	void SetSessions(std::vector<std::unique_ptr<ExerciseSession>> sessions) {
-		sessions_ = std::move(sessions);
-	}
-
-	void AddSession(std::unique_ptr<ExerciseSession> session) {
-		sessions_.push_back(std::move(session));
-	}
+	std::vector<ExerciseSession*> GetSessions() const;
+	void SetSessions(std::vector<std::unique_ptr<ExerciseSession>> sessions);
+	void AddSession(std::unique_ptr<ExerciseSession> session);
 };
