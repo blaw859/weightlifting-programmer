@@ -19,8 +19,6 @@ public:
 	Lift(const std::string& name, const std::string& desc) 
 		: name_(name), description_(desc) {}
 
-	Lift() : name_(""), description_("") {}
-
 	std::string GetName() const;
 	std::string GetDescription() const;
 	std::shared_ptr<Lift> GetBaseLift() const;

@@ -48,9 +48,9 @@ void LoadLiftsFromJson(const nlohmann::json& json_data) {
 
     /* first pass, just get the name and description put it in the list of all lifts */
     for (const auto& lift_data : json_data) {
-        auto lift = std::make_shared<Lift>();
-        lift->SetName(lift_data.at("name").get<std::string>());
-        lift->SetDescription(lift_data.at("description").get<std::string>());
+        auto name = lift_data.at("name").get<std::string>();
+        auto desc = lift_data.at("description").get<std::string>();
+        auto lift = std::make_shared<Lift>(name, desc);
         all_lifts[lift->GetName()] = lift;
     }
 
