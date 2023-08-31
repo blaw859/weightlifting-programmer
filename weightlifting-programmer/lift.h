@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include <set>
+#include <map>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include "exercise_session.h"
 
 class Lift {
@@ -14,6 +16,11 @@ public:
 	Lift(const std::string& name, const std::string& desc, const std::weak_ptr<Lift>& b_lift)
 		: name_(name), description_(desc), base_lift_(b_lift) {}
 
+	Lift(const std::string& name, const std::string& desc) 
+		: name_(name), description_(desc) {}
+
+	Lift() : name_(""), description_("") {}
+
 	std::string GetName() const;
 	std::string GetDescription() const;
 	std::shared_ptr<Lift> GetBaseLift() const;
@@ -21,4 +28,7 @@ public:
 	void SetName(const std::string& name);
 	void SetDescription(const std::string& desc);
 	void SetBaseLift(const std::shared_ptr<Lift>& b_lift);
+
+	friend void to_json(nlohmann::json& j, const Lift& lift);
+	friend void from_json(nlohmann::json& j, Lift& lift);
 };

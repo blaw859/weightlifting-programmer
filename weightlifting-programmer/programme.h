@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include "exercise_session.h"
 #include "day.h"
 
