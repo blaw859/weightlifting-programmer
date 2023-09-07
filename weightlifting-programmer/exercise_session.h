@@ -19,4 +19,5 @@ private:
 public:
 	friend void to_json(nlohmann::json& j, const ExerciseSession& lift);
 	friend void from_json(nlohmann::json& j, ExerciseSession& lift);
+
 };

@@ -8,10 +8,16 @@
 class Programme {
 private:
 	size_t length_; // length of programme in days
-	std::vector<std::unique_ptr<Day>> Days;
+	std::vector<Day> Days;
 
 public:
 	Programme(size_t len) : length_(len) {}
+
+	Day& operator[](size_t index);
+	const Day& operator[](size_t index) const;
+
+	
+
 
 
 
