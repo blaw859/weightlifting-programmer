@@ -12,16 +12,8 @@ void to_json(nlohmann::json& j, const Programme& programme) {
    j = nlohmann::json{};
 }
 
-
-void to_json(nlohmann::json& j, const Lift& lift) {
-    j = nlohmann::json{
-        {"name", lift.name_},
-        {"description", lift.description_}
-    };
-    if (auto base_lift_ptr = lift.base_lift_.lock()) {
-        j["base_lift"] = base_lift_ptr->GetName();
-    }
-    else {
-        j["base_lift"] = nullptr;
-    }
+std::ostream& operator<<(std::ostream& out, const Programme& lift)
+{
+   // TODO: insert return statement here
+   return out;
 }

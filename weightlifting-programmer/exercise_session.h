@@ -1,10 +1,13 @@
 #pragma once
-#include<vector>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <string>
 #include <nlohmann/json.hpp>
+#include "lift.h"
 
 struct LiftInfo {
-	std::string lift_name;
+	std::string lift_id;
+	std::shared_ptr<Lift> lift;
 	int number_of_sets;
 	int number_of_reps;
 	double percent_intensity;
@@ -12,12 +15,16 @@ struct LiftInfo {
 
 void to_json(nlohmann::json& j, const LiftInfo& lift);
 void from_json(nlohmann::json& j, LiftInfo& lift);
+std::ostream& operator<<(std::ostream& out, const LiftInfo& lift_info);
 
 class ExerciseSession {
 private:
-	std::vector<LiftInfo> lifts_;
+	std::vector<std::unique_ptr<LiftInfo>> lifts_;
 public:
-	friend void to_json(nlohmann::json& j, const ExerciseSession& lift);
-	friend void from_json(nlohmann::json& j, ExerciseSession& lift);
+	const std::vector<std::unique_ptr<LiftInfo>>& getLifts() const;
+	void setLifts(std::vector<std::unique_ptr<LiftInfo>> lifts);
+	void addLift(std::unique_ptr<LiftInfo> lift);
+	friend void to_json(nlohmann::json& j, const ExerciseSession& session);
+	friend void from_json(nlohmann::json& j, ExerciseSession session);
 
 };

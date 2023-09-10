@@ -1,28 +1,54 @@
-#include <vector>
-#include <memory>
-#include "exercise_session.h"
 #include "day.h"
+#include "exercise_session.h"
+#include "json_conversion.h"
 
 Day::Day() = default;
 
-Day::Day(std::unique_ptr<ExerciseSession> session) {
-	sessions_.push_back(std::move(session));
+Day::Day(std::unique_ptr<ExerciseSession> session)
+{
+   sessions_.push_back(std::move(session));
 }
 
 Day::Day(std::vector<std::unique_ptr<ExerciseSession>> sessions) : sessions_(std::move(sessions)) {}
 
-std::vector<ExerciseSession*> Day::GetSessions() const {
-	std::vector<ExerciseSession*> result;
-	for (const auto& session_ptr : sessions_) {
-		result.push_back(session_ptr.get());
-	}
-	return result;
+const std::vector<std::unique_ptr<ExerciseSession>>& Day::GetSessions() const {
+   return sessions_;
 }
 
-void Day::SetSessions(std::vector<std::unique_ptr<ExerciseSession>> sessions) {
-	sessions_ = std::move(sessions);
+void Day::SetSessions(std::vector<std::unique_ptr<ExerciseSession>> sessions)
+{
+   sessions_ = std::move(sessions);
 }
 
-void Day::AddSession(std::unique_ptr<ExerciseSession> session) {
-	sessions_.push_back(std::move(session));
+void Day::AddSession(std::unique_ptr<ExerciseSession> session)
+{
+   sessions_.push_back(std::move(session));
+}
+
+void to_json(nlohmann::json& j, const Day& day) {
+   j = nlohmann::json{
+       {"sessions", day.GetSessions()}
+   };
+}
+
+void from_json(const nlohmann::json& j, Day day)
+{
+}
+
+std::ostream& operator<<(std::ostream& out, const Day& lift)
+{
+   // TODO: insert return statement here
+   return out;
+}
+
+void from_json(nlohmann::json& j, Day& day) {
+   //if (j.contains("sessions") && j["sessions"].is_array()) {
+   //   std::vector<std::unique_ptr<ExerciseSession>> sessions;
+   //   for (nlohmann::json& session_json : j["sessions"]) {
+   //      ExerciseSession session; 
+   //      from_json(session_json, session);
+   //      sessions.push_back(session);
+   //   }
+   //   day.SetSessions(std::move(sessions));
+   //}
 }
