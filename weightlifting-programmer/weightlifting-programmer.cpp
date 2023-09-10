@@ -5,12 +5,14 @@
 #include <boost/program_options.hpp>
 #include <nlohmann/json.hpp>
 #include <rapidcsv.h>
+#include <xlnt/xlnt.hpp>
 #include "user.h"
 #include "day.h"
 #include "programme.h"
 #include "exercise_session.h"
 #include "lift.h"
 #include "json_conversion.h"
+#include "excel_exporter.h"
 
 nlohmann::json toJson(const User & user) {
 	nlohmann::json j;
@@ -48,16 +50,24 @@ int main()
 	sesh2->addLift(std::move(ohp_info_ptr));
 	sesh2->addLift(std::move(clean_pull_info_ptr));
 
-	auto day = std::make_unique<Day>();
-	day->AddSession(std::move(sesh1));
-	day->AddSession(std::move(sesh2));
+	//auto day = std::make_unique<Day>();
+	//day->AddSession(std::move(sesh1));
+	//day->AddSession(std::move(sesh2));
+
+
+	xlnt::workbook workbook;
+
+	auto ws = workbook.active_sheet();
+	ExcelExporter exporter = ExcelExporter("C:\\workspace\\test.xls");
+	exporter.GenerateCellBlock(*sesh1, 1, 1, ws);
+	workbook.save("C:\\workspace\\exercise_test.xlsx");
 
 
 	//nlohmann::json sesh_json;
 	//to_json(sesh_json, day);
 
 	//std::cout << clean_info << std::endl;
-	std::cout << day << std::endl;
+	//std::cout << day << std::endl;
 
 	//std::cout << sesh_json.dump() << std::endl;
 
