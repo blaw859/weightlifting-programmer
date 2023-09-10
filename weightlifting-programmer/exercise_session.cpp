@@ -39,6 +39,16 @@ std::ostream& operator<<(std::ostream& out, const LiftInfo& lift_info)
    return out;
 }
 
+std::ostream& operator<<(std::ostream& out, const ExerciseSession& exercise_session)
+{
+   for (const auto& lift : exercise_session.getLifts()) {
+      if (lift) {
+         out << *lift << std::endl;
+      }
+   }
+   return out;
+}
+
 void to_json(nlohmann::json& j, const ExerciseSession& session)
 {
    j = nlohmann::json{

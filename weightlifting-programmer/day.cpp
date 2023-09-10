@@ -37,7 +37,10 @@ void from_json(const nlohmann::json& j, Day day)
 
 std::ostream& operator<<(std::ostream& out, const Day& lift)
 {
-   // TODO: insert return statement here
+   for (int i = 0; i < lift.GetSessions().size(); i++) {
+      out << "Session " << i + 1 << std::endl;
+      out << lift.GetSessions()[i];
+   }
    return out;
 }
 

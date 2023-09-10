@@ -15,7 +15,7 @@ public:
 
 	Day& operator[](size_t index);
 	const Day& operator[](size_t index) const;
-
+   friend std::ostream& operator<<(std::ostream& out, const Programme& lift);
 	
 
 

@@ -17,11 +17,11 @@ private:
 	boost::uuids::uuid id_;
 	std::string name_;
 	std::string description_;
-	std::weak_ptr<Lift> base_lift_; // the lift we derive the % from i.e. 75% Hang Clean would be at 75% of the Clean
+	std::weak_ptr<Lift> default_base_lift_; // the lift we derive the % from i.e. 75% Hang Clean would be at 75% of the Clean
 
 public:
 	Lift(const std::string& name, const std::string& desc, const std::weak_ptr<Lift>& b_lift)
-		: name_(name), description_(desc), base_lift_(b_lift) {
+		: name_(name), description_(desc), default_base_lift_(b_lift) {
 		id_ = boost::uuids::random_generator()();
 	}
 

@@ -24,6 +24,7 @@ public:
 	const std::vector<std::unique_ptr<LiftInfo>>& getLifts() const;
 	void setLifts(std::vector<std::unique_ptr<LiftInfo>> lifts);
 	void addLift(std::unique_ptr<LiftInfo> lift);
+	friend std::ostream& operator<<(std::ostream& out, const ExerciseSession& lift_info);
 	friend void to_json(nlohmann::json& j, const ExerciseSession& session);
 	friend void from_json(nlohmann::json& j, ExerciseSession session);
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <nlohmann/json.hpp>
+#include <rapidcsv.h>
 #include "user.h"
 #include "day.h"
 #include "programme.h"
@@ -31,22 +32,32 @@ int main()
 
 	LiftInfo clean_info = { clean_ptr->GetId(), clean_ptr, 3, 1, 0.95 };
 	LiftInfo jerk_info = { jerk_ptr->GetId(), jerk_ptr, 3, 1, 0.95 };
+	LiftInfo ohp_info = { ohp_ptr->GetId(), ohp_ptr, 5, 3, 0.90 };
+	LiftInfo clean_pull_info = { clean_pull_ptr->GetId(), clean_pull_ptr, 3, 10, 70 };
 
 	auto clean_info_ptr = std::make_unique<LiftInfo>(clean_info);
 	auto jerk_info_ptr = std::make_unique<LiftInfo>(jerk_info);
+	auto ohp_info_ptr = std::make_unique<LiftInfo>(ohp_info);
+	auto clean_pull_info_ptr = std::make_unique<LiftInfo>(clean_pull_info);
 
-	auto sesh = std::make_unique<ExerciseSession>();
-	sesh->addLift(std::move(clean_info_ptr));
-	sesh->addLift(std::move(jerk_info_ptr));
+	auto sesh1 = std::make_unique<ExerciseSession>();
+	sesh1->addLift(std::move(clean_info_ptr));
+	sesh1->addLift(std::move(jerk_info_ptr));
+
+	auto sesh2 = std::make_unique<ExerciseSession>();
+	sesh2->addLift(std::move(ohp_info_ptr));
+	sesh2->addLift(std::move(clean_pull_info_ptr));
 
 	auto day = std::make_unique<Day>();
-	day->AddSession(std::move(sesh));
+	day->AddSession(std::move(sesh1));
+	day->AddSession(std::move(sesh2));
 
 
-	nlohmann::json sesh_json;
-	to_json(sesh_json, day);
+	//nlohmann::json sesh_json;
+	//to_json(sesh_json, day);
 
-	std::cout << clean_info << std::endl;
+	//std::cout << clean_info << std::endl;
+	std::cout << day << std::endl;
 
 	//std::cout << sesh_json.dump() << std::endl;
 

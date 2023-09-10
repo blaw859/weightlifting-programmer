@@ -16,7 +16,7 @@ std::string Lift::GetDescription() const
 
 std::shared_ptr<Lift> Lift::GetBaseLift() const
 {
-    return base_lift_.lock();
+    return default_base_lift_.lock();
 }
 
 void Lift::SetName(const std::string& name)
@@ -31,7 +31,7 @@ void Lift::SetDescription(const std::string& desc)
 
 void Lift::SetBaseLift(const std::shared_ptr<Lift>& b_lift)
 {
-    base_lift_ = b_lift;
+    default_base_lift_ = b_lift;
 }
 
 void to_json(nlohmann::json& j, const Lift& lift) {
@@ -40,7 +40,7 @@ void to_json(nlohmann::json& j, const Lift& lift) {
        {"name", lift.name_},
        {"description", lift.description_}
    };
-    if (auto base_lift_ptr = lift.base_lift_.lock()) {
+    if (auto base_lift_ptr = lift.default_base_lift_.lock()) {
         j["base_lift_id"] = base_lift_ptr->GetId();
     }
     else {
