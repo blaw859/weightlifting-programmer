@@ -33,6 +33,12 @@ void from_json(const nlohmann::json& j, LiftInfo& lift_info)
    lift_info.percent_intensity = j.at("intensity").get<double>();
 }
 
+int make_info_string(const LiftInfo& info, std::string* info_string)
+{
+   *info_string = std::format("{}X{}@{}%", info.number_of_sets, info.number_of_reps, info.percent_intensity * 100);
+   return 0;
+}
+
 std::ostream& operator<<(std::ostream& out, const LiftInfo& lift_info)
 {
    out << lift_info.lift->GetName() << ": " << lift_info.number_of_reps << "x" << lift_info.number_of_sets << "@" << lift_info.percent_intensity;

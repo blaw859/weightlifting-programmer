@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <format>
 #include <nlohmann/json.hpp>
 #include "lift.h"
 
@@ -15,6 +16,7 @@ struct LiftInfo {
 
 void to_json(nlohmann::json& j, const LiftInfo& lift);
 void from_json(nlohmann::json& j, LiftInfo& lift);
+int make_info_string(const LiftInfo&, std::string* info_string);
 std::ostream& operator<<(std::ostream& out, const LiftInfo& lift_info);
 
 class ExerciseSession {

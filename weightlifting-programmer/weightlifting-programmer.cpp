@@ -50,16 +50,17 @@ int main()
 	sesh2->addLift(std::move(ohp_info_ptr));
 	sesh2->addLift(std::move(clean_pull_info_ptr));
 
-	//auto day = std::make_unique<Day>();
-	//day->AddSession(std::move(sesh1));
-	//day->AddSession(std::move(sesh2));
+	auto day = std::make_unique<Day>();
+	day->AddSession(std::move(sesh1));
+	day->AddSession(std::move(sesh2));
 
 
 	xlnt::workbook workbook;
 
 	auto ws = workbook.active_sheet();
 	ExcelExporter exporter = ExcelExporter("C:\\workspace\\test.xls");
-	exporter.GenerateCellBlock(*sesh1, 1, 1, ws);
+	int i = 0;
+	exporter.GenerateCellBlock(day->GetSessions(),1,1,ws);
 	workbook.save("C:\\workspace\\exercise_test.xlsx");
 
 
